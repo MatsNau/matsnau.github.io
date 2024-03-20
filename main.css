@@ -129,7 +129,7 @@ canvas{
 html {
     font-size: 16px;
     line-height: 1.5;
-    /*background: rgb(15, 15, 16);*/
+    background: rgb(15, 15, 16);
     /* font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; */
     font-family: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
     color: var(--c-secondary);
