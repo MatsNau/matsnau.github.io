@@ -117,7 +117,7 @@ Ammo().then( function ( AmmoLib ) {
     let mat = new THREE.MeshPhongMaterial({ map: mapDef, wireframe: true });
     let mat1 = new THREE.MeshPhongMaterial({ map: mapDef, wireframe: false, side: THREE.DoubleSide });
 
-    new GLTFLoader().load('/kopflowpoly0.3.glb' , function ( gltf ) {
+    new GLTFLoader().load('/kopflowpoly0.9.glb' , function ( gltf ) {
       var threeObject = gltf.scene.children[0];
            
        for(let i = 0; i<gltf.scene.children.length; i++){
@@ -281,14 +281,14 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
     sbConfig.set_collisions( 0x11 );
 
     // Friction
-    sbConfig.set_kDF( 0.01 );
+    sbConfig.set_kDF( 0.5 );
     // Damping
-    sbConfig.set_kDP( 0.02 );
+    sbConfig.set_kDP( 0.01 );
     // Pressure
-    sbConfig.set_kPR( 1 );
+    sbConfig.set_kPR( 500 );
     // Stiffness
-    volumeSoftBody.get_m_materials().at( 0 ).set_m_kLST( 0.1 );
-    volumeSoftBody.get_m_materials().at( 0 ).set_m_kAST( 0.1 );
+    volumeSoftBody.get_m_materials().at( 0 ).set_m_kLST( 1.00 );
+    volumeSoftBody.get_m_materials().at( 0 ).set_m_kAST( 1.00 );
 
     volumeSoftBody.setTotalMass( mass, true )
     Ammo.castObject( volumeSoftBody, Ammo.btCollisionObject ).getCollisionShape().setMargin( margin );
@@ -510,7 +510,7 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
   
       if(softBodies.length > 0){
         updatePhysics( deltaTime );
-        softBodies[0].rotation.y += 0.01;
+        //softBodies[0].rotation.y += 0.008;
       }
 
       processClick();
