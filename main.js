@@ -4,7 +4,9 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { Geometry } from 'https://unpkg.com/three@0.125.2/examples/jsm/deprecated/Geometry.js'
 import { OrbitControls } from "https://unpkg.com/three@0.125.2/examples/jsm/controls/OrbitControls.js";
 
-
+//TODO:
+//EDIT MATERIAL
+//Add Loading screen for mesh
 
 // - Global variables -
 // Graphics variables
@@ -69,10 +71,10 @@ Ammo().then( function ( AmmoLib ) {
     controls.target.set( 0, 2, 0 );
     controls.update();*/
     
-    const pointLight = new THREE.PointLight(0xffffff, 1.0); //og50
+    const pointLight = new THREE.PointLight(0xffffff, 5.0); //og50
     pointLight.position.set(5, 5, 5);
     
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);//og10
+    const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);//og10
     scene.add(pointLight, ambientLight);
   }
 
@@ -501,6 +503,15 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
 
   }
 
+  function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+  
+    renderer.setSize( window.innerWidth, window.innerHeight );
+  
+  }
+
 
   
   // NOTE: MUST HAVE AN ANIMATE FUNCTION
@@ -514,6 +525,7 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
       }
 
       processClick();
+      onWindowResize();
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
   };
