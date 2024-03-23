@@ -54,9 +54,8 @@ Ammo().then( function ( AmmoLib ) {
     initInput();
     animate();
 
-    function init(){
-      // main.js
-    
+  function init(){
+
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x0F0F10);
@@ -258,14 +257,12 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
     volume.castShadow = true;
     volume.receiveShadow = true;
     volume.frustumCulled = false;
-    scene.add( volume );
 
     //Find out how to add the original material
   textureLoader.load( "./FBHead_baked_tex.png", function( texture ) {
         volume.material.map = texture;
         volume.material.needsUpdate = true;
     } );
-
     // Volume physic object
 
     var volumeSoftBody = softBodyHelpers.CreateFromTriMesh(
@@ -299,6 +296,8 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
     // Disable deactivation
     volumeSoftBody.setActivationState( 1 );
     softBodies.push(volume);
+    scene.add( volume );
+    removeLoader();
   }
 
   function processGeometry( bufGeometry ) {
@@ -512,7 +511,12 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
   
   }
 
-
+  function removeLoader() {
+    const loaderElement = document.querySelector('.loader');
+    if (loaderElement) {
+        loaderElement.remove(); // Entferne das Loader-Element aus dem DOM
+    }
+}
   
   // NOTE: MUST HAVE AN ANIMATE FUNCTION
   function animate () {
