@@ -6,7 +6,6 @@ import { OrbitControls } from "https://unpkg.com/three@0.125.2/examples/jsm/cont
 
 //TODO:
 //EDIT MATERIAL
-//Add Loading screen for mesh
 
 // - Global variables -
 // Graphics variables
@@ -16,6 +15,7 @@ const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg")
 });
+let loadingManager;
 let softBodies = [];
 let textureLoader = new THREE.TextureLoader();
 var clock = new THREE.Clock();
@@ -75,6 +75,14 @@ Ammo().then( function ( AmmoLib ) {
     
     const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);//og10
     scene.add(pointLight, ambientLight);
+
+    loadingManager = new THREE.LoadingManager( () => {
+	
+      const loadingScreen = document.getElementById( 'loader' );
+      loadingScreen.classList.add( 'fade-out' );
+            
+    } );
+
   }
 
   function initPhysics() {
@@ -117,8 +125,10 @@ Ammo().then( function ( AmmoLib ) {
     let mapDef = textureLoader.load( 'https://threejs.org/examples/textures/uv_grid_opengl.jpg' );
     let mat = new THREE.MeshPhongMaterial({ map: mapDef, wireframe: true });
     let mat1 = new THREE.MeshPhongMaterial({ map: mapDef, wireframe: false, side: THREE.DoubleSide });
+    let loader = new GLTFLoader(loadingManager);
 
-    new GLTFLoader().load('/kopflowpoly0.9.glb' , function ( gltf ) {
+
+    loader.load('/kopflowpoly0.9.glb' , function ( gltf ) {
       var threeObject = gltf.scene.children[0];
            
        for(let i = 0; i<gltf.scene.children.length; i++){
@@ -297,7 +307,6 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
     volumeSoftBody.setActivationState( 1 );
     softBodies.push(volume);
     scene.add( volume );
-    removeLoader();
   }
 
   function processGeometry( bufGeometry ) {

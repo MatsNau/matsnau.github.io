@@ -284,19 +284,27 @@ footer {
         grid-area: p;
     }
 
-.loader {
+#loader {
     grid-area: loader;
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #6b6b6b; /* Blue */
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 2s linear infinite;
-    
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    clip-path: inset(0 3ch 0 0);
+    animation: l4 1s steps(4) infinite;
     /* Neue Stile für die Positionierung */
     justify-self: end; /* Platzierung ganz rechts */
     align-self: center; /* Zentriert vertikal */
-    }
+  }
+  #loader:before {
+    content:"Loading..."
+  }
+  @keyframes l4 {to{clip-path: inset(0 -1ch 0 0)}}
+
+  #loader.fade-out {
+    opacity: 0;
+}
+
 
 @media only screen and (max-width: 834px) {
     :root {
@@ -311,7 +319,7 @@ footer {
         grid-template-columns: 1fr 8fr 2fr 1fr;
     }
 
-    .loader{
+    #loader{
         justify-self:center;
     }
 }
@@ -338,7 +346,7 @@ footer {
             ". description description .";
     }
 
-    .loader{
+    #loader{
         justify-self:center;
     }
 }
