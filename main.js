@@ -6,6 +6,7 @@ import { OrbitControls } from "https://unpkg.com/three@0.125.2/examples/jsm/cont
 
 //TODO:
 //EDIT MATERIAL
+//Bring more structure into the project
 
 // - Global variables -
 // Graphics variables
@@ -519,13 +520,6 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
     renderer.setSize( window.innerWidth, window.innerHeight );
   
   }
-
-  function removeLoader() {
-    const loaderElement = document.querySelector('.loader');
-    if (loaderElement) {
-        loaderElement.remove(); // Entferne das Loader-Element aus dem DOM
-    }
-}
   
   // NOTE: MUST HAVE AN ANIMATE FUNCTION
   function animate () {
